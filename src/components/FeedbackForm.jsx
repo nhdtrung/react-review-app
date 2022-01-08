@@ -1,31 +1,44 @@
 import { useState } from "react";
 import Card from "./shared/Card";
 import Button from "./shared/Button";
+import RatingSelect from "./RatingSelect";
 
-function FeedbackForm() {
+function FeedbackForm({ handleAdd }) {
   const [text, setText] = useState("");
+  const [rating, setRating] = useState(10);
   const [btnDisable, setBtnDisable] = useState(true);
   const [message, setMessage] = useState("");
 
   const handleTextChange = (e) => {
-      if(text === '') {
-          setBtnDisable(true)
-          setMessage(null)
-      } else if(text !== '' && text.trim().length < 10) {
-          setMessage('Text must be at least 10 characters !!!')
-      } else {
-          setMessage(null)
-          setBtnDisable(false)
-      }
+    if (text === "") {
+      setBtnDisable(true);
+      setMessage(null);
+    } else if (text !== "" && text.trim().length < 10) {
+      setMessage("Text must be at least 10 characters !!!");
+    } else {
+      setMessage(null);
+      setBtnDisable(false);
+    }
 
     setText(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (text.trim().length > 10) {
+      const newFeedBack = {
+        text: text,
+        rating: rating,
+      };
+      handleAdd(newFeedBack);
+    }
+  };
+
   return (
     <Card>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        {/* @todo - rating select component */}
+        <RatingSelect select={(rating) => setRating(rating)} />
         <div className="input-group">
           <input
             onChange={handleTextChange}
