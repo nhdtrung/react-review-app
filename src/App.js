@@ -1,41 +1,23 @@
-import React from "react";
-import "./App.css";
+import { useState } from 'react';
+import Header from './components/Header'
+import FeedbackList from './components/FeedbackList';
+import FeedbackData from './data/FeedbackData';
+import Card from './components/shared/Card';
 
 function App() {
-  const title = "Review App";
-  const body = "This is the body";
-  const comments = [
-    { id: 1, text: "Comment one" },
-    { id: 2, text: "Comment two" },
-    { id: 3, text: "Comment three" },
-  ];
-
-  const loading = true;
-  const showComments = true;
-
-  // if(loading) return <h1>Loading...</h1>
+  const [feedback, setFeedBack] = useState(FeedbackData);
 
   return (
-    <div className="container">
-      <h1>{title.toUpperCase()}</h1>
-      <p>{body}</p>
-
-      {showComments && (
-        <div className="comments">
-          <ul>
-            {comments.map((comment, index) => (
-              <li key={index}>{comment.text}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <FeedbackList feedback={feedback} />
+        <Card>
+          Hello world
+        </Card>
+      </div>
+    </>
   );
-
-  // return React.createElement('div', { className: 'container' },
-  //   React.createElement('h1', {}, 'My App')
-  // )
 }
 
 export default App;
