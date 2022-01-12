@@ -15,7 +15,7 @@ function Card({ children, reverse }) {
 }
 
 Card.defaultProps = {
-    reserve: false
+    reverse: false
 }
 
 Card.propTypes = {
